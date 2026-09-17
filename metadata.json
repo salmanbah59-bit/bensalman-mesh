@@ -1,0 +1,10 @@
+{
+  "name": "Remix BENSALMAN 👑 - Messagerie Offline Mesh",
+  "description": "Application de messagerie mobile offline fonctionnant sans internet ni puce via Bluetooth Low Energy, Wifi Direct et Mesh Networking.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
