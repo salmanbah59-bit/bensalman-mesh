@@ -1,7 +1,7 @@
 name: Generer APK Bensalman
 on: [push, workflow_dispatch]
 jobs:
-  construire:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -12,12 +12,9 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.22.0'
-      - name: Installer
-        run: flutter pub get
-      - name: Generer APK
-        run: flutter build apk --debug
-      - name: Sauver APK
-        uses: actions/upload-artifact@v4
+      - run: flutter pub get
+      - run: flutter build apk --debug
+      - uses: actions/upload-artifact@v4
         with:
           name: BENSALMAN-MESH-APK
           path: build/app/outputs/flutter-apk/app-debug.apk
