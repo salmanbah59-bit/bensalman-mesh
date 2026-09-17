@@ -1,39 +1,21 @@
 name: Generer APK Bensalman
-
-on:
-  push:
-  workflow_dispatch:
-
+on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Recuperer le projet
-        uses: actions/checkout@v4
-
-      - name: Installer Java 17
-        uses: actions/setup-java@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
-
-      - name: Installer Flutter
-        uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.22.0'
-
-      - name: Generer la structure Android Flutter
-        run: flutter create --platforms=android .
-
-      - name: Installer les dependances
-        run: flutter pub get
-
-      - name: Construire APK
-        run: flutter build apk --debug
-
-      - name: Envoyer APK
-        uses: actions/upload-artifact@v4
+      - run: flutter create --platforms=android .
+      - run: flutter pub get
+      - run: flutter build apk --debug
+      - uses: actions/upload-artifact@v4
         with:
           name: BENSALMAN-MESH-APK
           path: build/app/outputs/flutter-apk/app-debug.apk
