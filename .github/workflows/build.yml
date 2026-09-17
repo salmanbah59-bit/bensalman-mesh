@@ -1,20 +1,10 @@
-name: Build APK Bensalman
+name: Generer APK Bensalman
 on: [push, workflow_dispatch]
 jobs:
-  build:
+  construire:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Download project ZIP
-        run: |
-          wget https://files.catbox.moe/kozr2w.zip -O project.zip
-          unzip project.zip -d .
-          # Trouve le dossier du projet
-          PROJ=$(find . -name "pubspec.yaml" | head -n 1 | xargs dirname)
-          echo "PROJ=$PROJ" >> $GITHUB_ENV
-          mv $PROJ/* . || true
-          mv $PROJ/.* . || true
-          rm -rf project.zip __MACOSX
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
@@ -22,12 +12,12 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.22.0'
-      - name: Build APK
-        run: |
-          flutter pub get
-          flutter build apk --release
-      - name: Upload APK
+      - name: Installer
+        run: flutter pub get
+      - name: Generer APK
+        run: flutter build apk --debug
+      - name: Sauver APK
         uses: actions/upload-artifact@v4
         with:
-          name: Bensalman-Mesh-APK
-          path: build/app/outputs/flutter-apk/app-release.apk
+          name: BENSALMAN-MESH-APK
+          path: build/app/outputs/flutter-apk/app-debug.apk
